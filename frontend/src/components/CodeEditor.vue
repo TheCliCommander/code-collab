@@ -30,22 +30,8 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import hljs from 'highlight.js'
-import javascript from 'highlight.js/lib/languages/javascript'
-import python from 'highlight.js/lib/languages/python'
-import xml from 'highlight.js/lib/languages/xml'
-import css from 'highlight.js/lib/languages/css'
-import java from 'highlight.js/lib/languages/java'
-import csharp from 'highlight.js/lib/languages/csharp'
 import EditorToolbar from './EditorToolbar.vue'
 import 'highlight.js/styles/github-dark.css'
-
-// Register the languages
-hljs.registerLanguage('javascript', javascript)
-hljs.registerLanguage('python', python)
-hljs.registerLanguage('html', xml)
-hljs.registerLanguage('css', css)
-hljs.registerLanguage('java', java)
-hljs.registerLanguage('csharp', csharp)
 
 const code = ref('')
 const language = ref('javascript')
@@ -268,6 +254,23 @@ async function loadFile(event) {
   position: relative;
   flex: 1;
   overflow: auto;
+  display: flex;
+}
+
+.line-numbers {
+  position: sticky;
+  left: 0;
+  padding: 1rem 0.5rem;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
+  user-select: none;
+  z-index: 2;
+}
+
+.editor-content {
+  position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
 .editor-textarea,
@@ -276,14 +279,14 @@ async function loadFile(event) {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   padding: 1rem;
   font-family: 'Fira Code', monospace;
   font-size: 14px;
   line-height: 1.5;
   tab-size: 2;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  white-space: pre;
+  overflow: visible;
 }
 
 .editor-textarea {
