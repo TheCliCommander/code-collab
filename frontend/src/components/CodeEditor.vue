@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import hljs from 'highlight.js'
 import EditorToolbar from './EditorToolbar.vue'
 import 'highlight.js/styles/github-dark.css'
@@ -121,6 +121,27 @@ public class SortingExample {
             System.out.print(num + " ");
         }
     }
+}`,
+  csharp: `// C# Example
+using System;
+
+public class Program
+{
+    public static int Fibonacci(int n)
+    {
+        if (n <= 1)
+            return n;
+        return Fibonacci(n - 1) + Fibonacci(n - 2);
+    }
+
+    public static void Main()
+    {
+        Console.WriteLine("First 10 Fibonacci numbers:");
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine($"Fibonacci({i}) = {Fibonacci(i)}");
+        }
+    }
 }`
 }
 
@@ -168,6 +189,18 @@ function copyCode() {
 function toggleTheme() {
   isDarkTheme.value = !isDarkTheme.value
 }
+
+function updateHighlight() {
+  nextTick(() => {
+    highlightedCode.value = hljs.highlight(code.value, { language: language.value }).value
+  })
+}
+
+// Watch for language changes
+watch(language, (newLang) => {
+  code.value = starters[newLang]
+  updateHighlight()
+})
 
 onMounted(() => {
   code.value = starters[language.value]
