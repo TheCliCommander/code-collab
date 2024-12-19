@@ -47,40 +47,89 @@
   
   // Sample starter code for each language
   const starters = {
-    javascript: `// Welcome to the Code Editor
-  function greeting(name) {
-    return \`Hello, \${name}!\`;
-  }
-  
-  console.log(greeting('World'));`,
-    python: `# Welcome to the Code Editor
-  def greeting(name):
-      return f"Hello, {name}!"
-  
-  print(greeting("World"))`,
+    javascript: `// JavaScript Example
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// Calculate first 10 Fibonacci numbers
+for (let i = 0; i < 10; i++) {
+  console.log(\`Fibonacci(\${i}) = \${fibonacci(i)}\`);
+}`,
+    python: `# Python Example
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Calculate first 10 Fibonacci numbers
+for i in range(10):
+    print(f"Fibonacci({i}) = {fibonacci(i)}")`,
     html: `<!DOCTYPE html>
-  <html>
-    <head>
-      <title>Hello World</title>
-    </head>
-    <body>
-      <h1>Hello, World!</h1>
-    </body>
-  </html>`,
-    css: `/* Welcome to the Code Editor */
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #f0f0f0;
-  }`,
-    java: `// Welcome to the Code Editor
-  public class HelloWorld {
-      public static void main(String[] args) {
-          System.out.println("Hello, World!");
-      }
-  }`
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Example</title>
+    <style>
+        .container { text-align: center; padding: 2rem; }
+        button { padding: 1rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello, World!</h1>
+        <button onclick="alert('Clicked!')">Click me</button>
+    </div>
+</body>
+</html>`,
+    css: `/* Modern CSS Example */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card {
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}`,
+    java: `// Java Example
+public class SortingExample {
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // Swap elements
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] numbers = {64, 34, 25, 12, 22, 11, 90};
+        bubbleSort(numbers);
+        
+        System.out.println("Sorted array:");
+        for (int num : numbers) {
+            System.out.print(num + " ");
+        }
+    }
+}`
   }
   
   const highlightedCode = computed(() => {
