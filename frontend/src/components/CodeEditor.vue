@@ -36,7 +36,7 @@
   </template>
   
   <script setup>
-  import { ref, computed, onMounted } from 'vue'
+  import { ref, computed, onMounted, watch, nextTick } from 'vue'
   import hljs from 'highlight.js'
   import 'highlight.js/styles/github-dark.css' // Add this to your main.js instead if preferred
   
