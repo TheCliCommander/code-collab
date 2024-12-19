@@ -7,6 +7,7 @@
       @toggle-theme="toggleTheme"
       @save="saveCode"
       @share="copyCode"
+      @load="loadFile"
     />
     
     <div class="editor-wrapper">
@@ -205,6 +206,34 @@ watch(language, (newLang) => {
 onMounted(() => {
   code.value = starters[language.value]
 })
+
+async function loadFile(event) {
+  const file = event.target.files[0]
+  if (!file) return
+
+  // Update language based on file extension
+  const extension = file.name.split('.').pop()
+  const extensionToLanguage = {
+    'js': 'javascript',
+    'py': 'python',
+    'html': 'html',
+    'css': 'css',
+    'java': 'java',
+    'cs': 'csharp'
+  }
+  
+  if (extensionToLanguage[extension]) {
+    language.value = extensionToLanguage[extension]
+  }
+
+  // Read file content
+  const text = await file.text()
+  code.value = text
+  updateHighlight()
+  
+  // Reset file input
+  event.target.value = ''
+}
 </script>
 
 <style scoped>
@@ -224,7 +253,7 @@ onMounted(() => {
 .editor-wrapper {
   position: relative;
   flex: 1;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .editor-textarea,
@@ -233,12 +262,14 @@ onMounted(() => {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   padding: 1rem;
   font-family: 'Fira Code', monospace;
   font-size: 14px;
   line-height: 1.5;
   tab-size: 2;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .editor-textarea {

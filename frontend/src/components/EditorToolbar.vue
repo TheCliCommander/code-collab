@@ -1,16 +1,25 @@
 <template>
     <div class="toolbar" :class="{ 'dark-theme': isDarkTheme }">
-      <select 
-        :value="language"
-        @input="$emit('update:language', $event.target.value)"
-      >
-        <option value="javascript">JavaScript</option>
-        <option value="python">Python</option>
-        <option value="html">HTML</option>
-        <option value="css">CSS</option>
-        <option value="java">Java</option>
-        <option value="csharp">C#</option>
-      </select>
+      <div class="toolbar-left">
+        <select 
+          :value="language"
+          @input="$emit('update:language', $event.target.value)"
+        >
+          <option value="javascript">JavaScript</option>
+          <option value="python">Python</option>
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="java">Java</option>
+          <option value="csharp">C#</option>
+        </select>
+        <input
+          type="file"
+          ref="fileInput"
+          @change="$emit('load', $event)"
+          style="display: none"
+        />
+        <button @click="$refs.fileInput.click()">Load</button>
+      </div>
       
       <div class="toolbar-actions">
         <button @click="$emit('share')">Share</button>
@@ -28,7 +37,7 @@
     isDarkTheme: Boolean
   })
   
-  defineEmits(['update:language', 'share', 'save', 'toggle-theme'])
+  defineEmits(['update:language', 'share', 'save', 'toggle-theme', 'load'])
   </script>
   
   <style scoped>
@@ -65,5 +74,11 @@
   .toolbar-actions {
     display: flex;
     gap: 0.5rem;
+  }
+  
+  .toolbar-left {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
   </style>
