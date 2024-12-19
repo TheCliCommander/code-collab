@@ -30,8 +30,22 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import hljs from 'highlight.js'
+import javascript from 'highlight.js/lib/languages/javascript'
+import python from 'highlight.js/lib/languages/python'
+import xml from 'highlight.js/lib/languages/xml'
+import css from 'highlight.js/lib/languages/css'
+import java from 'highlight.js/lib/languages/java'
+import csharp from 'highlight.js/lib/languages/csharp'
 import EditorToolbar from './EditorToolbar.vue'
 import 'highlight.js/styles/github-dark.css'
+
+// Register the languages
+hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('python', python)
+hljs.registerLanguage('html', xml)
+hljs.registerLanguage('css', css)
+hljs.registerLanguage('java', java)
+hljs.registerLanguage('csharp', csharp)
 
 const code = ref('')
 const language = ref('javascript')
