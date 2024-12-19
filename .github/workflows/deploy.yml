@@ -24,6 +24,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+      
+      - name: Debug git status
+        run: |
+          echo "Current branch:"
+          git branch --show-current
+          echo "Latest commit:"
+          git log -1 --oneline
+          echo "All branches:"
+          git branch -a
       
       - name: Clean
         run: |
