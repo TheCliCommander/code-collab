@@ -40,12 +40,14 @@ jobs:
         run: |
           cd frontend
           npm run build
+          ls -la dist
       
       - name: Set correct permissions
         run: |
           cd frontend
           chmod -R 755 dist
           find dist -type f -exec chmod 644 {} \;
+          ls -la dist
       
       - name: Setup Pages
         uses: actions/configure-pages@v3
