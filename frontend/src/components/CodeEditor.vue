@@ -11,18 +11,23 @@
     />
     
     <div class="editor-wrapper">
-      <textarea
-        ref="editorRef"
-        v-model="code"
-        @input="updateHighlight"
-        @keydown="handleKeydown"
-        :spellcheck="false"
-        class="editor-textarea"
-      ></textarea>
-      <pre 
-        class="editor-highlight"
-        v-html="highlightedCode"
-      ></pre>
+      <div class="line-numbers">
+        <div v-for="n in lineCount" :key="n" class="line-number">{{ n }}</div>
+      </div>
+      <div class="editor-content">
+        <textarea
+          ref="editorRef"
+          v-model="code"
+          @input="updateHighlight"
+          @keydown="handleKeydown"
+          :spellcheck="false"
+          class="editor-textarea"
+        ></textarea>
+        <pre 
+          class="editor-highlight"
+          v-html="highlightedCode"
+        ></pre>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +42,10 @@ const code = ref('')
 const language = ref('javascript')
 const isDarkTheme = ref(false)
 const editorRef = ref(null)
+
+const lineCount = computed(() => {
+  return code.value.split('\n').length
+})
 
 // Sample starter code for each language
 const starters = {
@@ -257,20 +266,10 @@ async function loadFile(event) {
   display: flex;
 }
 
-.line-numbers {
-  position: sticky;
-  left: 0;
-  padding: 1rem 0.5rem;
-  background: #f5f5f5;
-  border-right: 1px solid #ddd;
-  user-select: none;
-  z-index: 2;
-}
-
 .editor-content {
   position: relative;
   flex: 1;
-  min-width: 0;
+  overflow: visible;
 }
 
 .editor-textarea,
@@ -279,14 +278,16 @@ async function loadFile(event) {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   padding: 1rem;
   font-family: 'Fira Code', monospace;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 21px;
   tab-size: 2;
   white-space: pre;
-  overflow: visible;
+  box-sizing: border-box;
+  margin: 0;
+  overflow-y: hidden;
 }
 
 .editor-textarea {
@@ -308,5 +309,34 @@ async function loadFile(event) {
   white-space: pre-wrap;
   word-wrap: break-word;
   z-index: 0;
+}
+
+.line-numbers {
+  padding: 1rem 0;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  min-width: 3rem;
+  margin-top: 0;
+}
+
+.line-number {
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  line-height: 21px;
+  color: #666;
+  text-align: right;
+  padding: 0 0.5rem;
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.dark-theme .line-number {
+  color: #888;
 }
 </style>
