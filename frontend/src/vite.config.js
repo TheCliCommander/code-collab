@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  base: '/code-editor/', // Replace with your repo name
+  base: '/code-collab/', // Replace with your repo name
   plugins: [vue()],
   resolve: {
     alias: {
