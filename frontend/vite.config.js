@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  base: '/code-collab/',
+  base: process.env.NODE_ENV === 'production' ? '/code-collab/' : '/',
   plugins: [vue()],
   resolve: {
     alias: {
