@@ -25,6 +25,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Clean
+        run: |
+          cd frontend
+          rm -rf dist node_modules package-lock.json
+          
+      - name: Verify branch and files
+        run: |
+          git branch --show-current
+          git log -1 --pretty=format:"%h %s"
+          ls -la frontend/src/components/
+      
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
