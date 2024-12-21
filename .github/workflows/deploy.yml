@@ -40,7 +40,7 @@ jobs:
       - name: Clean
         run: |
           cd frontend
-          rm -rf dist node_modules package-lock.json
+          rm -rf dist node_modules 
           
       - name: Verify branch and files
         run: |
